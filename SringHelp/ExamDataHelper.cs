@@ -403,7 +403,7 @@ namespace SringHelp
         /// <summary>
         /// 获取已报名的考生id
         /// </summary>
-        /// <param name="examId"></param>
+        /// <param name="examId">examId</param>
         /// <returns></returns>
         private static IEnumerable<Guid> GetSignExaUserIds(Guid examId)
         {
