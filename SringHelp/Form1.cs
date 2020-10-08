@@ -22,23 +22,23 @@ namespace SringHelp
 
         private void Button_SearchOrg_Click(object sender, EventArgs e)
         {
-            Label_Status.Text = "加载机构数据";
+            toolStripStatusLabel_Default.Text = "加载机构数据";
             var orgs = ExamDataHelper.GetOrgIdNamesTable(TextBox_OrgSearch.Text);
             ComboBox_OrgList.DisplayMember = "FullName";
             ComboBox_OrgList.ValueMember = "OrganizeId";
             ComboBox_OrgList.DataSource = orgs;
-            Label_Status.Text = "机构数据加载完成";
+            toolStripStatusLabel_Default.Text = "机构数据加载完成";
         }
 
         private void Button_SearchExam_Click(object sender, EventArgs e)
         {
-            Label_Status.Text = "加载考试数据";
+            toolStripStatusLabel_Default.Text = "加载考试数据";
             var orgSelect = (DataRowView)ComboBox_OrgList.SelectedItem;
             var exams = ExamDataHelper.GetExamTable(orgSelect?[0].ToString());
             ComboBox_ExamList.DisplayMember = "ExamName";
             ComboBox_ExamList.ValueMember = "ExamId";
             ComboBox_ExamList.DataSource = exams;
-            Label_Status.Text = "考试数据加载完成";
+            toolStripStatusLabel_Default.Text = "考试数据加载完成";
         }
 
         private void Button_SignUser_Click(object sender, EventArgs e)
@@ -61,9 +61,9 @@ namespace SringHelp
                 }
                 orgId = (Guid)orgSelect[0];
             }
-            Label_Status.Text = "开始报名";
+            toolStripStatusLabel_Default.Text = "开始报名";
             var rst = ExamDataHelper.SignOrgUser((Guid)selectExam[0], orgId);
-            Label_Status.Text = "报名结束";
+            toolStripStatusLabel_Default.Text = "报名结束";
             MessageBox.Show(rst);
         }
 
@@ -76,23 +76,23 @@ namespace SringHelp
                 return;
             }
 
-            Label_Status.Text = "选择报名文件";
+            toolStripStatusLabel_Default.Text = "选择报名文件";
             OpenFileDialog excelFileDialog = new OpenFileDialog();
             excelFileDialog.Title = "请选择报名文件";
             excelFileDialog.Filter = "Excel文件|*.xls;*.xlsx"; //设置要选择的文件的类型
 
             if (excelFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Label_Status.Text = "开始报名";
+                toolStripStatusLabel_Default.Text = "开始报名";
                 var rst = ExamDataHelper.SignExcelUser((Guid)selectExam[0], excelFileDialog.FileName);
                 MessageBox.Show(rst);
             }
-            Label_Status.Text = "报名结束";
+            toolStripStatusLabel_Default.Text = "报名结束";
         }
 
         private void MainFrom_Load(object sender, EventArgs e)
         {
-            Label_Status.Text = "";
+            toolStripStatusLabel_Default.Text = "";
         }
 
 
@@ -119,29 +119,30 @@ namespace SringHelp
         /// <param name="text"></param>
         private void SetText(string text)
         {
-            if (this.Label_Status.InvokeRequired)//如果调用控件的线程和创建创建控件的线程不是同一个则为True
-            {
-                while (!this.Label_Status.IsHandleCreated)
-                {
-                    //解决窗体关闭时出现“访问已释放句柄“的异常
-                    if (this.Label_Status.Disposing || this.Label_Status.IsDisposed)
-                        return;
-                }
-                SetLabelStatusText d = new SetLabelStatusText(SetText);
-                this.Label_Status.Invoke(d, text);
+            toolStripStatusLabel_Default.Text = text;
+            //if (this.Label_Status.InvokeRequired)//如果调用控件的线程和创建创建控件的线程不是同一个则为True
+            //{
+            //    while (!this.Label_Status.IsHandleCreated)
+            //    {
+            //        //解决窗体关闭时出现“访问已释放句柄“的异常
+            //        if (this.Label_Status.Disposing || this.Label_Status.IsDisposed)
+            //            return;
+            //    }
+            //    SetLabelStatusText d = new SetLabelStatusText(SetText);
+            //    this.toolStripStatusLabel_Default.Invoke(d, text);
 
-            }
-            else
-            {
-                this.Label_Status.Text = text;
-            }
+            //}
+            //else
+            //{
+            //    this.Label_Status.Text = text;
+            //}
         }
         private void Button_UserSelect_Click(object sender, EventArgs e)
         {
             var up = int.Parse(TextBox_OrgSearch.Text);
             var down = int.Parse(TextBox_SearchExam.Text);
 
-            Label_Status.Text = (up / down).ToString();
+            toolStripStatusLabel_Default.Text = (up / down).ToString();
 
         }
     }

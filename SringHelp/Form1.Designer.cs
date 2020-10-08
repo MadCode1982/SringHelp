@@ -41,8 +41,10 @@
             this.Button_ExcelSign = new System.Windows.Forms.Button();
             this.Button_UserSelect = new System.Windows.Forms.Button();
             this.StatusStrip_Main = new System.Windows.Forms.StatusStrip();
-            this.Label_Status = new System.Windows.Forms.Label();
+            this.toolStripProgressBar_Default = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel_Default = new System.Windows.Forms.ToolStripStatusLabel();
             this.checkBox_OrgUser = new System.Windows.Forms.CheckBox();
+            this.StatusStrip_Main.SuspendLayout();
             this.SuspendLayout();
             // 
             // Button_Create
@@ -157,21 +159,26 @@
             // 
             // StatusStrip_Main
             // 
-            this.StatusStrip_Main.Location = new System.Drawing.Point(0, 489);
+            this.StatusStrip_Main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar_Default,
+            this.toolStripStatusLabel_Default});
+            this.StatusStrip_Main.Location = new System.Drawing.Point(0, 551);
             this.StatusStrip_Main.MinimumSize = new System.Drawing.Size(0, 30);
             this.StatusStrip_Main.Name = "StatusStrip_Main";
-            this.StatusStrip_Main.Size = new System.Drawing.Size(800, 30);
+            this.StatusStrip_Main.Size = new System.Drawing.Size(1076, 30);
             this.StatusStrip_Main.TabIndex = 10;
             this.StatusStrip_Main.Text = "statusStrip1";
             // 
-            // Label_Status
+            // toolStripProgressBar_Default
             // 
-            this.Label_Status.AutoSize = true;
-            this.Label_Status.Location = new System.Drawing.Point(12, 495);
-            this.Label_Status.Name = "Label_Status";
-            this.Label_Status.Size = new System.Drawing.Size(79, 17);
-            this.Label_Status.TabIndex = 11;
-            this.Label_Status.Text = "Label_Status";
+            this.toolStripProgressBar_Default.Name = "toolStripProgressBar_Default";
+            this.toolStripProgressBar_Default.Size = new System.Drawing.Size(100, 24);
+            // 
+            // toolStripStatusLabel_Default
+            // 
+            this.toolStripStatusLabel_Default.Name = "toolStripStatusLabel_Default";
+            this.toolStripStatusLabel_Default.Size = new System.Drawing.Size(131, 25);
+            this.toolStripStatusLabel_Default.Text = "toolStripStatusLabel1";
             // 
             // checkBox_OrgUser
             // 
@@ -187,9 +194,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 519);
+            this.ClientSize = new System.Drawing.Size(1076, 581);
             this.Controls.Add(this.checkBox_OrgUser);
-            this.Controls.Add(this.Label_Status);
             this.Controls.Add(this.StatusStrip_Main);
             this.Controls.Add(this.Button_UserSelect);
             this.Controls.Add(this.Button_ExcelSign);
@@ -206,6 +212,8 @@
             this.Name = "MainFrom";
             this.Text = "主窗口";
             this.Load += new System.EventHandler(this.MainFrom_Load);
+            this.StatusStrip_Main.ResumeLayout(false);
+            this.StatusStrip_Main.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,8 +234,9 @@
         private System.Windows.Forms.Button Button_ExcelSign;
         private System.Windows.Forms.Button Button_UserSelect;
         private System.Windows.Forms.StatusStrip StatusStrip_Main;
-        private System.Windows.Forms.Label Label_Status;
         private System.Windows.Forms.CheckBox checkBox_OrgUser;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar_Default;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_Default;
     }
 }
 
