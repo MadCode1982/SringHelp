@@ -153,6 +153,7 @@
             this.Button_UserSelect.TabIndex = 8;
             this.Button_UserSelect.Text = "选择报名";
             this.Button_UserSelect.UseVisualStyleBackColor = true;
+            this.Button_UserSelect.Click += new System.EventHandler(this.Button_UserSelect_Click);
             // 
             // StatusStrip_Main
             // 

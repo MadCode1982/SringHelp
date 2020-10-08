@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SringHelp
@@ -92,6 +93,55 @@ namespace SringHelp
         private void MainFrom_Load(object sender, EventArgs e)
         {
             Label_Status.Text = "";
+        }
+
+
+        public void SignExcelUser(Guid examId, string fileName)
+        {
+            var userAccounts = ExcelHelper.GetWorkBookFromFile(fileName).GetUserAccounts().ToArray();
+            var userIds = ExamDataHelper.GetUserIdsByAccount(userAccounts).ToArray();
+            var rst = Parallel.For(0, userIds.Length / 5000, d =>
+            {
+                ExamDataHelper.SignUserToExam(examId, userIds.Skip(d * 5000).Take(5000).ToArray());
+            });
+            while(!rst.IsCompleted)
+            {
+
+            }
+        }
+
+        delegate void SetLabelStatusText(string text);
+
+        //第三步：定义更新UI控件的方法
+        /// <summary>
+        /// 更新文本框内容的方法
+        /// </summary>
+        /// <param name="text"></param>
+        private void SetText(string text)
+        {
+            if (this.Label_Status.InvokeRequired)//如果调用控件的线程和创建创建控件的线程不是同一个则为True
+            {
+                while (!this.Label_Status.IsHandleCreated)
+                {
+                    //解决窗体关闭时出现“访问已释放句柄“的异常
+                    if (this.Label_Status.Disposing || this.Label_Status.IsDisposed)
+                        return;
+                }
+                SetLabelStatusText d = new SetLabelStatusText(SetText);
+                this.Label_Status.Invoke(d, text);
+            }
+            else
+            {
+                this.Label_Status.Text = text;
+            }
+        }
+        private void Button_UserSelect_Click(object sender, EventArgs e)
+        {
+            var up = int.Parse(TextBox_OrgSearch.Text);
+            var down = int.Parse(TextBox_SearchExam.Text);
+
+            Label_Status.Text = (up / down).ToString();
+
         }
     }
 }

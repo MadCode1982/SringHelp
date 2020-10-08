@@ -384,7 +384,7 @@ namespace SringHelp
             return examTable;
         }
 
-        private static IEnumerable<Guid> GetUserIdsByAccount(params string[] accounts)
+        public static IEnumerable<Guid> GetUserIdsByAccount(params string[] accounts)
         {
             if (accounts == null || accounts.Length == 0)
                 yield break;
@@ -428,7 +428,6 @@ namespace SringHelp
         {
             var userAccounts = ExcelHelper.GetWorkBookFromFile(fileName).GetUserAccounts().ToArray();
             var userIds = GetUserIdsByAccount(userAccounts).ToArray();
-
             return SignUserToExam(examId, userIds);
         }
 
