@@ -55,7 +55,7 @@
             // 
             this.ToolStrip_Main.Location = new System.Drawing.Point(0, 0);
             this.ToolStrip_Main.Name = "ToolStrip_Main";
-            this.ToolStrip_Main.Size = new System.Drawing.Size(800, 25);
+            this.ToolStrip_Main.Size = new System.Drawing.Size(842, 25);
             this.ToolStrip_Main.TabIndex = 1;
             this.ToolStrip_Main.Text = "toolStrip1";
             // 
@@ -112,16 +112,16 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 452);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(842, 22);
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // label_Status
             // 
             this.label_Status.AutoSize = true;
-            this.label_Status.Location = new System.Drawing.Point(12, 431);
+            this.label_Status.Location = new System.Drawing.Point(1, 457);
             this.label_Status.Name = "label_Status";
             this.label_Status.Size = new System.Drawing.Size(79, 17);
             this.label_Status.TabIndex = 8;
@@ -131,7 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(842, 474);
             this.Controls.Add(this.label_Status);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.Button_SearchUser);

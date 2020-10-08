@@ -129,6 +129,7 @@ namespace SringHelp
                 }
                 SetLabelStatusText d = new SetLabelStatusText(SetText);
                 this.Label_Status.Invoke(d, text);
+
             }
             else
             {
