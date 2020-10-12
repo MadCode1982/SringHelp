@@ -15,6 +15,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="ServiceStack.Common">
+      <HintPath>Dll\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>Dll\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Redis">
+      <HintPath>Dll\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>Dll\ServiceStack.Text.dll</HintPath>
+    </Reference>
     <Reference Include="Sring.BusinessModule.ExamManage.Entity">
       <HintPath>Dll\Sring.BusinessModule.ExamManage.Entity.dll</HintPath>
     </Reference>
