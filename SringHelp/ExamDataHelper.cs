@@ -44,6 +44,12 @@ namespace SringHelp
             };
         }
 
+        /// <summary>
+        /// 创建答题记录
+        /// </summary>
+        /// <param name="studentPaperId"></param>
+        /// <param name="studentPaperDetail"></param>
+        /// <returns></returns>
         public static StudentPaperDetailEntity CreateStudentPaperDetailFromDetail(Guid studentPaperId, StudentPaperDetailEntity studentPaperDetail)
         {
             return new StudentPaperDetailEntity()
@@ -133,7 +139,10 @@ namespace SringHelp
         /// <param name="userId"></param>
         public static string SignUserToExam(Guid examId, params Guid[] userIds)
         {
-            var examPapers = GetExamPapers(examId).Select(d => new ExamPaper() { ExamId = examId, PaperFormJson = d.PaperFormJson, PaperId = d.PaperId }).ToList(); //考生试卷
+            Stopwatch totalTimewatch = new Stopwatch();
+            totalTimewatch.Start();
+
+            var examPapers = GetExamPapers(examId.ToString()).Select(d => new ExamPaper() { ExamId = examId, PaperFormJson = d.PaperFormJson, PaperId = d.PaperId }).ToList(); //考生试卷
             var lastExamNum = GetLastExamNum(examId); //最后答题卡号
             foreach (var paper in examPapers)
             {
@@ -143,26 +152,38 @@ namespace SringHelp
             var joinExamUserIds = GetSignExaUserIds(examId).ToArray();
 
             userIds = userIds.Where(d => !joinExamUserIds.Contains(d)).ToArray(); //未报名的考生
-            List<StudentPapersEntity> resultPapers = new List<StudentPapersEntity>(userIds.Length); //要保存的试卷
-            List<StudentPaperDetailEntity> resultPaperDetails = new List<StudentPaperDetailEntity>(userIds.Length * examPapers.FirstOrDefault().StudentPaperDetails.Count); //要保存的答题记录
 
-            Random random = new Random(Guid.NewGuid().GetHashCode());
-            foreach (var user in userIds)
+            var maxSignExamUserCount = int.Parse(ConfigurationManager.GetSection("MaxSignExamUserCount")); //每次报名最大人数
+            int paperCount = 0;
+            int detailsCount = 0;
+
+            StringBuilder resBuilder = new StringBuilder();
+            for (int startPage = 0; startPage <= (userIds.Length / maxSignExamUserCount); startPage++)
             {
-                var selectExamPaper = examPapers[random.Next(0, examPapers.Count)];
-                var studentPaper = CreateStudentPaperFromPaperJson(examId, user, selectExamPaper, lastExamNum++); //创建考生试卷
-                resultPapers.Add(studentPaper);
-                foreach (var paperDetail in selectExamPaper.StudentPaperDetails)
+                List<StudentPapersEntity> resultPapers = new List<StudentPapersEntity>(userIds.Length); //要保存的试卷
+                List<StudentPaperDetailEntity> resultPaperDetails = new List<StudentPaperDetailEntity>(userIds.Length * examPapers.FirstOrDefault().StudentPaperDetails.Count); //要保存的答题记录
+
+                Random random = new Random(Guid.NewGuid().GetHashCode());
+                foreach (var user in userIds.Skip(startPage * maxSignExamUserCount).Take(maxSignExamUserCount))
                 {
-                    var studentPaperDetail = CreateStudentPaperDetailFromDetail(studentPaper.StudentPaperId.Value, paperDetail); //答题记录
-                    resultPaperDetails.Add(studentPaperDetail);
+                    var selectExamPaper = examPapers[random.Next(0, examPapers.Count)];
+                    var studentPaper = CreateStudentPaperFromPaperJson(examId, user, selectExamPaper, lastExamNum++); //创建考生试卷
+                    resultPapers.Add(studentPaper);
+                    foreach (var paperDetail in selectExamPaper.StudentPaperDetails)
+                    {
+                        var studentPaperDetail = CreateStudentPaperDetailFromDetail(studentPaper.StudentPaperId.Value, paperDetail); //答题记录
+                        resultPaperDetails.Add(studentPaperDetail);
+                    }
                 }
+                resBuilder.Append(BulkInsertStudentPapers(resultPapers.ToArray()));
+                resBuilder.Append(BulkInsertStudentPaperDetails(resultPaperDetails.ToArray()));
+                resBuilder.AppendLine();
+                paperCount += resultPapers.Count;
+                detailsCount += resultPaperDetails.Count;
             }
 
-            string res1 = BulkInsertStudentPapers(resultPapers.ToArray());
-            string res2 = BulkInsertStudentPaperDetails(resultPaperDetails.ToArray());
-
-            return $"PaperCount:{resultPapers.Count} DetailCount:{resultPaperDetails.Count} {res1} {res2}";
+            totalTimewatch.Stop();
+            return $"共创建试卷:{paperCount} 共创建答题记录:{detailsCount} 共耗时（毫秒）：{totalTimewatch.ElapsedMilliseconds} /n {resBuilder}";
         }
 
         /// <summary>
@@ -193,7 +214,7 @@ namespace SringHelp
             sqlBulkCopy.WriteToServer(studentPaperTable);
             stopwatch.Stop();
 
-            return $"Exam_StudentPapers time1:{time1} time2:{stopwatch.ElapsedMilliseconds}";
+            return $"Exam_StudentPapers 创建试卷】{studentPapers.Length}】份耗时（毫秒）:{time1} 保存到数据库耗时（毫秒）:{stopwatch.ElapsedMilliseconds}";
         }
 
         /// <summary>
@@ -224,7 +245,7 @@ namespace SringHelp
             sqlBulkCopy.WriteToServer(studentPaperDetailsTable);
             stopwatch.Stop();
 
-            return $"Exam_StudentPaperDetail  time1:{time1} time2:{stopwatch.ElapsedMilliseconds}";
+            return $"Exam_StudentPaperDetail  创建答题记录【{studentPaperDetails.Length}】份耗时（耗时）:{time1} 保存到数据库耗时（毫秒）:{stopwatch.ElapsedMilliseconds}";
         }
 
         /// <summary>

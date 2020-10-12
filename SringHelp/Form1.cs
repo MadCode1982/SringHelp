@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Dynamic;
 
 namespace SringHelp
 {
@@ -104,7 +105,7 @@ namespace SringHelp
             {
                 ExamDataHelper.SignUserToExam(examId, userIds.Skip(d * 5000).Take(5000).ToArray());
             });
-            while(!rst.IsCompleted)
+            while (!rst.IsCompleted)
             {
 
             }
@@ -139,11 +140,9 @@ namespace SringHelp
         }
         private void Button_UserSelect_Click(object sender, EventArgs e)
         {
-            var up = int.Parse(TextBox_OrgSearch.Text);
-            var down = int.Parse(TextBox_SearchExam.Text);
 
-            toolStripStatusLabel_Default.Text = (up / down).ToString();
-
+            object d = new { isa = 11,ssd=22 };
+            var ss = ((dynamic)d).isa;
         }
     }
 }
