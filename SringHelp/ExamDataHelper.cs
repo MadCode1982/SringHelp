@@ -63,7 +63,7 @@ namespace SringHelp
         /// <summary>
         /// 获取考试试卷
         /// </summary>
-        public static IEnumerable<PapersEntity> GetExamPapers(string examId)
+        public static IEnumerable<PapersEntity> GetExamPapers(Guid examId)
         {
             StringBuilder sqlBulider = new StringBuilder();
             sqlBulider.AppendFormat(@"SELECT [PaperId]
@@ -71,7 +71,16 @@ namespace SringHelp
                                         FROM [dbo].[Exam_Papers]
                                         WHERE ExamId = '{0}'", examId);
             using SqlConnection conn = new SqlConnection(ConnStr);
-            SqlCommand sqlCommand = new SqlCommand(sqlBulider.ToString(), conn);
+            SqlCommand sqlCommand = new SqlCommand()
+            {
+                Connection = conn,
+                CommandText = @"SELECT [PaperId]
+                                            ,[PaperFormJson]
+                                        FROM [dbo].[Exam_Papers]
+                                        WHERE ExamId = @examId"
+            };
+            sqlCommand.Parameters.Add("@examId", SqlDbType.UniqueIdentifier).Value = examId;
+
             conn.Open();
             var reader = sqlCommand.ExecuteReader();
             while (reader.Read())
@@ -91,13 +100,18 @@ namespace SringHelp
         /// <returns></returns>
         public static int GetLastExamNum(Guid examId)
         {
-            StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendFormat(@"SELECT TOP (1) [ExamNumber]
-                                        FROM [edu].[dbo].[Exam_StudentPapers]
-                                        WHERE ExamId =  '{0}'
-                                        ORDER BY CreatedDate desc", examId);
             using SqlConnection conn = new SqlConnection(ConnStr);
-            SqlCommand sqlCommand = new SqlCommand(sqlBuilder.ToString(), conn);
+            SqlCommand sqlCommand = new SqlCommand
+            {
+                Connection = conn,
+                CommandText = @"SELECT TOP (1) [ExamNumber]
+                                        FROM [edu].[dbo].[Exam_StudentPapers]
+                                        WHERE ExamId = @examId
+                                        ORDER BY CreatedDate desc"
+            };
+
+            sqlCommand.Parameters.Add("@examId", SqlDbType.UniqueIdentifier).Value = examId;
+
             conn.Open();
             var reader = sqlCommand.ExecuteReader();
             if (reader.Read())
@@ -119,7 +133,7 @@ namespace SringHelp
         /// <param name="userId"></param>
         public static string SignUserToExam(Guid examId, params Guid[] userIds)
         {
-            var examPapers = GetExamPapers(examId.ToString()).Select(d => new ExamPaper() { ExamId = examId, PaperFormJson = d.PaperFormJson, PaperId = d.PaperId }).ToList(); //考生试卷
+            var examPapers = GetExamPapers(examId).Select(d => new ExamPaper() { ExamId = examId, PaperFormJson = d.PaperFormJson, PaperId = d.PaperId }).ToList(); //考生试卷
             var lastExamNum = GetLastExamNum(examId); //最后答题卡号
             foreach (var paper in examPapers)
             {
@@ -311,10 +325,8 @@ namespace SringHelp
         /// <returns></returns>
         public static IEnumerable<(Guid OrgId, string OrgName)> GetOrgIdNames()
         {
-            StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SELECT [OrganizeId] ,[FullName] FROM [dbo].[Base_Organize] ");
             using SqlConnection conn = new SqlConnection(ConnStr);
-            SqlCommand sqlCommand = new SqlCommand(sqlBuilder.ToString(), conn);
+            SqlCommand sqlCommand = new SqlCommand("SELECT [OrganizeId] ,[FullName] FROM [dbo].[Base_Organize]", conn);
             conn.Open();
             var reader = sqlCommand.ExecuteReader();
             while (reader.Read())
@@ -336,14 +348,13 @@ namespace SringHelp
             });
             orgTable.DefaultView.Sort = "FullName ASC ";
 
-            StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SELECT [OrganizeId] ,[FullName] FROM [dbo].[Base_Organize] ");
+            using SqlConnection conn = new SqlConnection(ConnStr);
+            SqlCommand sqlCommand = new SqlCommand("SELECT [OrganizeId] ,[FullName] FROM [dbo].[Base_Organize] ", conn);
             if (!string.IsNullOrWhiteSpace(searchValue))
             {
-                sqlBuilder.Append($"WHERE FullName LIKE '%{searchValue.Trim()}%'");
+                sqlCommand.CommandText += $"WHERE FullName LIKE @searchValue";
+                sqlCommand.Parameters.Add("@searchValue", SqlDbType.NVarChar).Value = $"%{searchValue.Trim()}%";
             }
-            using SqlConnection conn = new SqlConnection(ConnStr);
-            SqlCommand sqlCommand = new SqlCommand(sqlBuilder.ToString(), conn);
             conn.Open();
             var reader = sqlCommand.ExecuteReader();
             while (reader.Read())
@@ -363,15 +374,15 @@ namespace SringHelp
                 new DataColumn("ExamId",typeof(Guid)),
                 new DataColumn("ExamName",typeof(string))
             });
-            StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SELECT TOP (30) [ExamId], [ExamName] FROM [dbo].[Exam_Content] ");
+
+            using SqlConnection conn = new SqlConnection(ConnStr);
+            SqlCommand sqlCommand = new SqlCommand("SELECT TOP (30) [ExamId], [ExamName] FROM [dbo].[Exam_Content] ", conn);
             if (!string.IsNullOrWhiteSpace(orgId))
             {
-                sqlBuilder.Append($" WHERE OrganizeId ='{orgId}' ");
+                sqlCommand.CommandText += "WHERE OrganizeId = @orgId";
+                sqlCommand.Parameters.Add("@orgId", SqlDbType.UniqueIdentifier).Value = orgId;
             }
-            sqlBuilder.Append(" ORDER BY CreatedDate DESC ");
-            using SqlConnection conn = new SqlConnection(ConnStr);
-            SqlCommand sqlCommand = new SqlCommand(sqlBuilder.ToString(), conn);
+            sqlCommand.CommandText += " ORDER BY CreatedDate DESC";
             conn.Open();
             var reader = sqlCommand.ExecuteReader();
             while (reader.Read())
@@ -407,10 +418,9 @@ namespace SringHelp
         /// <returns></returns>
         private static IEnumerable<Guid> GetSignExaUserIds(Guid examId)
         {
-            StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append($"SELECT [UserId] FROM [dbo].[Exam_StudentPapers] WHERE ExamId = '{examId}'");
             using SqlConnection conn = new SqlConnection(ConnStr);
-            SqlCommand sqlCommand = new SqlCommand(sqlBuilder.ToString(), conn);
+            SqlCommand sqlCommand = new SqlCommand("SELECT [UserId] FROM [dbo].[Exam_StudentPapers] WHERE ExamId = @examId ", conn);
+            sqlCommand.Parameters.Add("@examId", SqlDbType.UniqueIdentifier).Value = examId;
             conn.Open();
             var reader = sqlCommand.ExecuteReader();
             while (reader.Read())
