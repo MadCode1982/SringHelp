@@ -44,6 +44,8 @@
             this.toolStripProgressBar_Default = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel_Default = new System.Windows.Forms.ToolStripStatusLabel();
             this.checkBox_OrgUser = new System.Windows.Forms.CheckBox();
+            this.button_UpdateToDataBase = new System.Windows.Forms.Button();
+            this.button_LoadExamToCache = new System.Windows.Forms.Button();
             this.StatusStrip_Main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -190,11 +192,33 @@
             this.checkBox_OrgUser.Text = "机构用户";
             this.checkBox_OrgUser.UseVisualStyleBackColor = true;
             // 
+            // button_UpdateToDataBase
+            // 
+            this.button_UpdateToDataBase.Location = new System.Drawing.Point(702, 109);
+            this.button_UpdateToDataBase.Name = "button_UpdateToDataBase";
+            this.button_UpdateToDataBase.Size = new System.Drawing.Size(87, 52);
+            this.button_UpdateToDataBase.TabIndex = 13;
+            this.button_UpdateToDataBase.Text = "同步缓存数据到数据库";
+            this.button_UpdateToDataBase.UseVisualStyleBackColor = true;
+            this.button_UpdateToDataBase.Click += new System.EventHandler(this.button_UpdateToDataBase_Click);
+            // 
+            // button_LoadExamToCache
+            // 
+            this.button_LoadExamToCache.Location = new System.Drawing.Point(702, 192);
+            this.button_LoadExamToCache.Name = "button_LoadExamToCache";
+            this.button_LoadExamToCache.Size = new System.Drawing.Size(87, 43);
+            this.button_LoadExamToCache.TabIndex = 14;
+            this.button_LoadExamToCache.Text = "加载考试信息到缓存";
+            this.button_LoadExamToCache.UseVisualStyleBackColor = true;
+            this.button_LoadExamToCache.Click += new System.EventHandler(this.button_LoadExamToCache_Click);
+            // 
             // MainFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1076, 581);
+            this.Controls.Add(this.button_LoadExamToCache);
+            this.Controls.Add(this.button_UpdateToDataBase);
             this.Controls.Add(this.checkBox_OrgUser);
             this.Controls.Add(this.StatusStrip_Main);
             this.Controls.Add(this.Button_UserSelect);
@@ -237,6 +261,8 @@
         private System.Windows.Forms.CheckBox checkBox_OrgUser;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar_Default;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_Default;
+        private System.Windows.Forms.Button button_UpdateToDataBase;
+        private System.Windows.Forms.Button button_LoadExamToCache;
     }
 }
 

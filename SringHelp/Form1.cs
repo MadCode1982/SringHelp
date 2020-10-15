@@ -35,7 +35,7 @@ namespace SringHelp
         {
             toolStripStatusLabel_Default.Text = "加载考试数据";
             var orgSelect = (DataRowView)ComboBox_OrgList.SelectedItem;
-            var exams = ExamDataHelper.GetExamTable(orgSelect?[0].ToString());
+            var exams = ExamDataHelper.GetExamTable((Guid?)orgSelect?[0],TextBox_SearchExam.Text);
             ComboBox_ExamList.DisplayMember = "ExamName";
             ComboBox_ExamList.ValueMember = "ExamId";
             ComboBox_ExamList.DataSource = exams;
@@ -141,8 +141,37 @@ namespace SringHelp
         private void Button_UserSelect_Click(object sender, EventArgs e)
         {
 
-            object d = new { isa = 11,ssd=22 };
+            object d = new { isa = 11, ssd = 22 };
             var ss = ((dynamic)d).isa;
+        }
+
+        /// <summary>
+        /// 更新缓存数据到数据库
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_UpdateToDataBase_Click(object sender, EventArgs e)
+        {
+            var details = ExamDataHelper.GetStudentPaperDetails(new Guid("7AA8CA7E-194D-4A96-859D-33FB19822C3F"), new Guid("B5798D23-4681-4053-BAB6-AAF57A1F2D0B"), new Guid("D68545F7-73E6-4BE3-9E2D-06C6166C4445")).ToArray();
+            var datatale = ExamDataHelper.PaperDetailToDataTable(details);
+
+        }
+
+        /// <summary>
+        /// 加载考试数据到缓存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_LoadExamToCache_Click(object sender, EventArgs e)
+        {
+            var selectExam = (DataRowView)ComboBox_ExamList.SelectedItem;
+            if (selectExam == null)
+            {
+                MessageBox.Show("请选择考试！");
+                return;
+            }
+            string rst = ExamCacheHelper.GetExamToCache((Guid)selectExam[0]);
+            MessageBox.Show(rst);
         }
     }
 }

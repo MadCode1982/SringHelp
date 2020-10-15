@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SringHelp
 {
@@ -111,7 +112,7 @@ namespace SringHelp
             {
                 Connection = conn,
                 CommandText = @"SELECT TOP (1) [ExamNumber]
-                                        FROM [edu].[dbo].[Exam_StudentPapers]
+                                        FROM [dbo].[Exam_StudentPapers]
                                         WHERE ExamId = @examId
                                         ORDER BY CreatedDate desc"
             };
@@ -142,7 +143,7 @@ namespace SringHelp
             Stopwatch totalTimewatch = new Stopwatch();
             totalTimewatch.Start();
 
-            var examPapers = GetExamPapers(examId.ToString()).Select(d => new ExamPaper() { ExamId = examId, PaperFormJson = d.PaperFormJson, PaperId = d.PaperId }).ToList(); //考生试卷
+            var examPapers = GetExamPapers(examId).Select(d => new ExamPaper() { ExamId = examId, PaperFormJson = d.PaperFormJson, PaperId = d.PaperId }).ToList(); //考生试卷
             var lastExamNum = GetLastExamNum(examId); //最后答题卡号
             foreach (var paper in examPapers)
             {
@@ -175,8 +176,26 @@ namespace SringHelp
                         resultPaperDetails.Add(studentPaperDetail);
                     }
                 }
-                resBuilder.Append(BulkInsertStudentPapers(resultPapers.ToArray()));
-                resBuilder.Append(BulkInsertStudentPaperDetails(resultPaperDetails.ToArray()));
+                try
+                {
+                    resBuilder.Append(BulkInsertStudentPapers(resultPapers.ToArray()));
+
+                }
+                catch (Exception e)
+                {
+
+                    throw new Exception("批量写入试卷出错！" + resultPapers.Count.ToString() + e.Message);
+                }
+                try
+                {
+                    resBuilder.Append(BulkInsertStudentPaperDetails(resultPaperDetails.ToArray()));
+
+                }
+                catch (Exception e)
+                {
+
+                    throw new Exception("批量写入答题记录出错出错！"+ resultPaperDetails.Count.ToString() + e.Message);
+                }
                 resBuilder.AppendLine();
                 paperCount += resultPapers.Count;
                 detailsCount += resultPaperDetails.Count;
@@ -253,7 +272,7 @@ namespace SringHelp
         /// </summary>
         /// <param name="studentPapers"></param>
         /// <returns></returns>
-        private static DataTable StudentPaperToDataTable(params StudentPapersEntity[] studentPapers)
+        public static DataTable StudentPaperToDataTable(params StudentPapersEntity[] studentPapers)
         {
             DataTable dataTable = new DataTable("Exam_StudentPapers");
             dataTable.Columns.AddRange(new DataColumn[] {
@@ -286,7 +305,7 @@ namespace SringHelp
         /// </summary>
         /// <param name="studentPaperDetails"></param>
         /// <returns></returns>
-        private static DataTable PaperDetailToDataTable(params StudentPaperDetailEntity[] studentPaperDetails)
+        public static DataTable PaperDetailToDataTable(params StudentPaperDetailEntity[] studentPaperDetails)
         {
             DataTable dataTable = new DataTable("Exam_StudentPaperDetail");
             dataTable.Columns.AddRange(new DataColumn[] {
@@ -388,7 +407,7 @@ namespace SringHelp
             return orgTable;
         }
 
-        public static DataTable GetExamTable(string orgId)
+        public static DataTable GetExamTable(Guid? orgId, string searchValue)
         {
             var examTable = new DataTable("Exams");
             examTable.Columns.AddRange(new DataColumn[] {
@@ -397,11 +416,16 @@ namespace SringHelp
             });
 
             using SqlConnection conn = new SqlConnection(ConnStr);
-            SqlCommand sqlCommand = new SqlCommand("SELECT TOP (30) [ExamId], [ExamName] FROM [dbo].[Exam_Content] ", conn);
-            if (!string.IsNullOrWhiteSpace(orgId))
+            SqlCommand sqlCommand = new SqlCommand("SELECT TOP (30) [ExamId], [ExamName] FROM [dbo].[Exam_Content] WHERE 1=1 ", conn);
+            if (orgId.HasValue)
             {
-                sqlCommand.CommandText += "WHERE OrganizeId = @orgId";
+                sqlCommand.CommandText += " AND OrganizeId = @orgId ";
                 sqlCommand.Parameters.Add("@orgId", SqlDbType.UniqueIdentifier).Value = orgId;
+            }
+            if (!string.IsNullOrWhiteSpace(searchValue))
+            {
+                sqlCommand.CommandText += " AND ExamName like @examName ";
+                sqlCommand.Parameters.Add("@examName", SqlDbType.VarChar).Value = "%" + searchValue + "%";
             }
             sqlCommand.CommandText += " ORDER BY CreatedDate DESC";
             conn.Open();
@@ -470,18 +494,169 @@ namespace SringHelp
         /// <returns></returns>
         public static string SignOrgUser(Guid examId, Guid? orgId)
         {
-
             Guid[] userIds;
-            if (orgId.HasValue)
+
+            try
             {
-                userIds = GetUserIds(orgId.Value).ToArray();
+                if (orgId.HasValue)
+                {
+                    userIds = GetUserIds(orgId.Value).ToArray();
+                }
+                else
+                {
+                    userIds = GetUserIds().ToArray();
+                }
             }
-            else
+            catch (Exception e)
             {
-                userIds = GetUserIds().ToArray();
+
+                throw new Exception("获取机构用户出错" + e.Message + e.InnerException?.Message + orgId.ToString());
             }
+            
 
             return SignUserToExam(examId, userIds);
+        }
+
+        /// <summary>
+        /// 批量读取考生试卷
+        /// </summary>
+        /// <param name="paperIds"></param>
+        /// <returns></returns>
+        public static IEnumerable<StudentPapersEntity> GetStudentPapers(params Guid[] paperIds)
+        {
+            StringBuilder sqlBuilder = new StringBuilder();
+            sqlBuilder.Append(@"SELECT [StudentPaperId]
+                                ,[ExamId]
+                                ,[PaperId]
+                                ,[UserId]
+                                ,[CreatedDate]
+                                ,[ExamNumber]
+                            FROM [dbo].[Exam_StudentPapers]
+                            WHERE ");
+            sqlBuilder.AppendJoin(" OR ", paperIds.Select(d => $" StudentPaperId = '{d}' "));
+
+            using SqlConnection conn = new SqlConnection(ConnStr);
+            SqlCommand sqlCommand = new SqlCommand(sqlBuilder.ToString(), conn);
+            conn.Open();
+            var reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                yield return new StudentPapersEntity()
+                {
+                    StudentPaperId = Guid.Parse(reader["StudentPaperId"].ToString()),
+                    ExamId = Guid.Parse(reader["ExamId"].ToString()),
+                    PaperId = Guid.Parse(reader["PaperId"].ToString()),
+                    UserId = Guid.Parse(reader["UserId"].ToString()),
+                    CreatedDate = DateTime.Parse(reader["CreatedDate"].ToString()),
+                    ExamNumber = int.Parse(reader["ExamNumber"].ToString())
+                };
+            }
+        }
+
+        /// <summary>
+        /// 批量读取考试答题记录
+        /// </summary>
+        /// <param name="paperDetaidIds"></param>
+        /// <returns></returns>
+        public static IEnumerable<StudentPaperDetailEntity> GetStudentPaperDetails(params Guid[] studentPaperIds)
+        {
+            StringBuilder sqlBuilder = new StringBuilder();
+            sqlBuilder.Append(@"SELECT [StudentPaperDetailId]
+                                ,[StudentPaperId]
+                                ,[QuestionId]
+                                ,[QuestionType]
+                                ,[Score]
+                                ,[Status]
+                                ,[QuestionJson]
+                            FROM [dbo].[Exam_StudentPaperDetail]   
+                            WHERE ");
+            sqlBuilder.AppendJoin(" OR ", studentPaperIds.Select(d => $" StudentPaperId = '{d}' "));
+
+            using SqlConnection conn = new SqlConnection(ConnStr);
+            SqlCommand sqlCommand = new SqlCommand(sqlBuilder.ToString(), conn);
+            conn.Open();
+            var reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                yield return new StudentPaperDetailEntity()
+                {
+                    StudentPaperDetailId = Guid.Parse(reader["StudentPaperDetailId"].ToString()),
+                    StudentPaperId = Guid.Parse(reader["StudentPaperId"].ToString()),
+                    QuestionId = Guid.Parse(reader["QuestionId"].ToString()),
+                    QuestionType = int.Parse(reader["QuestionType"].ToString()),
+                    Score = double.Parse(reader["Score"].ToString()),
+                    DeleteStatus = false,
+                    Status = int.Parse(reader["Status"].ToString()),
+                    QuestionJson = reader["QuestionJson"].ToString(),
+                    CreatedDate = DateTime.Now,
+                    LastUpdatedDate = DateTime.Now
+                };
+            }
+        }
+
+        /// <summary>
+        /// 获取考试试卷id
+        /// </summary>
+        /// <param name="examId"></param>
+        /// <returns>StudentPaperId</returns>
+        public static IEnumerable<Guid> GetExamStudentPaperIds(Guid examId)
+        {
+            using SqlConnection conn = new SqlConnection(ConnStr);
+            SqlCommand sqlCommand = new SqlCommand("SELECT [StudentPaperId] FROM [dbo].[Exam_StudentPapers]  WHERE ExamId = @examId", conn);
+            sqlCommand.Parameters.Add("@examId", SqlDbType.UniqueIdentifier).Value = examId;
+            conn.Open();
+            var reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                yield return Guid.Parse(reader["StudentPaperId"].ToString());
+            }
+        }
+
+        /// <summary>
+        /// 获取试卷答题记录id
+        /// </summary>
+        /// <param name="studentPaperId"></param>
+        /// <returns>StudentPaperDetailId</returns>
+        public static IEnumerable<Guid> GetStudentPaperDetailId(params Guid[] studentPaperId)
+        {
+            StringBuilder sqlBuilder = new StringBuilder("SELECT  [StudentPaperDetailId] FROM [dbo].[Exam_StudentPaperDetail] WHERE ");
+            sqlBuilder.AppendJoin(" OR ", studentPaperId.Select(d => $" StudentPaperId = '{d}' "));
+
+            using SqlConnection conn = new SqlConnection(ConnStr);
+            SqlCommand sqlCommand = new SqlCommand(sqlBuilder.ToString(), conn);
+            conn.Open();
+            var reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                yield return Guid.Parse(reader["StudentPaperDetailId"].ToString());
+            }
+        }
+
+        /// <summary>
+        /// 批量更新答题记录
+        /// </summary>
+        /// <param name="newdata"></param>
+        public static int BulkUpdatePaperDetailData(DataTable newdata)
+        {
+            using SqlConnection conn = new SqlConnection(ConnStr);
+            using SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
+            adapter.SelectCommand = new SqlCommand(@"SELECT [StudentPaperDetailId]
+                                ,[DeleteStatus]
+                                ,[QuestionId]
+                                ,[QuestionJson]
+                                ,[QuestionType]
+                                ,[Score]
+                                ,[Status]
+                                ,[StudentPaperId]
+                                ,[CreatedDate]
+                            FROM [dbo].[Exam_StudentPaperDetail]", conn);
+            adapter.InsertCommand = commandBuilder.GetUpdateCommand();
+            foreach (DataColumn column in newdata.Columns)
+            {
+            }
+
+            return adapter.Update(newdata);
         }
     }
 }
