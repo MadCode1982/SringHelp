@@ -46,7 +46,16 @@
             this.checkBox_OrgUser = new System.Windows.Forms.CheckBox();
             this.button_UpdateToDataBase = new System.Windows.Forms.Button();
             this.button_LoadExamToCache = new System.Windows.Forms.Button();
+            this.label_ConStr = new System.Windows.Forms.Label();
+            this.label_MaxSignCount = new System.Windows.Forms.Label();
+            this.label_MaxCachePageCount = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.numericUpDown_MaxSignPageCount = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_MaxCachePageCount = new System.Windows.Forms.NumericUpDown();
+            this.button_BulkToolsTest = new System.Windows.Forms.Button();
             this.StatusStrip_Main.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MaxSignPageCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MaxCachePageCount)).BeginInit();
             this.SuspendLayout();
             // 
             // Button_Create
@@ -212,11 +221,88 @@
             this.button_LoadExamToCache.UseVisualStyleBackColor = true;
             this.button_LoadExamToCache.Click += new System.EventHandler(this.button_LoadExamToCache_Click);
             // 
+            // label_ConStr
+            // 
+            this.label_ConStr.AutoSize = true;
+            this.label_ConStr.Location = new System.Drawing.Point(0, 530);
+            this.label_ConStr.Name = "label_ConStr";
+            this.label_ConStr.Size = new System.Drawing.Size(116, 17);
+            this.label_ConStr.TabIndex = 15;
+            this.label_ConStr.Text = "数据库连接字符串：";
+            // 
+            // label_MaxSignCount
+            // 
+            this.label_MaxSignCount.AutoSize = true;
+            this.label_MaxSignCount.Location = new System.Drawing.Point(0, 495);
+            this.label_MaxSignCount.Name = "label_MaxSignCount";
+            this.label_MaxSignCount.Size = new System.Drawing.Size(104, 17);
+            this.label_MaxSignCount.TabIndex = 16;
+            this.label_MaxSignCount.Text = "最大每次报名数：";
+            // 
+            // label_MaxCachePageCount
+            // 
+            this.label_MaxCachePageCount.AutoSize = true;
+            this.label_MaxCachePageCount.Location = new System.Drawing.Point(221, 495);
+            this.label_MaxCachePageCount.Name = "label_MaxCachePageCount";
+            this.label_MaxCachePageCount.Size = new System.Drawing.Size(104, 17);
+            this.label_MaxCachePageCount.TabIndex = 17;
+            this.label_MaxCachePageCount.Text = "最大每次缓存数：";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(122, 527);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(751, 23);
+            this.textBox1.TabIndex = 18;
+            this.textBox1.Text = "Server=DESKTOP-JDEFIP0\\MSSQLSERVER16;Initial Catalog=Edu;Integrated Security=True" +
+    "";
+            // 
+            // numericUpDown_MaxSignPageCount
+            // 
+            this.numericUpDown_MaxSignPageCount.Location = new System.Drawing.Point(122, 493);
+            this.numericUpDown_MaxSignPageCount.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown_MaxSignPageCount.Name = "numericUpDown_MaxSignPageCount";
+            this.numericUpDown_MaxSignPageCount.Size = new System.Drawing.Size(77, 23);
+            this.numericUpDown_MaxSignPageCount.TabIndex = 19;
+            // 
+            // numericUpDown_MaxCachePageCount
+            // 
+            this.numericUpDown_MaxCachePageCount.Location = new System.Drawing.Point(331, 493);
+            this.numericUpDown_MaxCachePageCount.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown_MaxCachePageCount.Name = "numericUpDown_MaxCachePageCount";
+            this.numericUpDown_MaxCachePageCount.Size = new System.Drawing.Size(70, 23);
+            this.numericUpDown_MaxCachePageCount.TabIndex = 20;
+            // 
+            // button_BulkToolsTest
+            // 
+            this.button_BulkToolsTest.Location = new System.Drawing.Point(667, 342);
+            this.button_BulkToolsTest.Name = "button_BulkToolsTest";
+            this.button_BulkToolsTest.Size = new System.Drawing.Size(75, 46);
+            this.button_BulkToolsTest.TabIndex = 21;
+            this.button_BulkToolsTest.Text = "批量报名插件测试";
+            this.button_BulkToolsTest.UseVisualStyleBackColor = true;
+            this.button_BulkToolsTest.Click += new System.EventHandler(this.button_BulkToolsTest_Click);
+            // 
             // MainFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1076, 581);
+            this.Controls.Add(this.button_BulkToolsTest);
+            this.Controls.Add(this.numericUpDown_MaxCachePageCount);
+            this.Controls.Add(this.numericUpDown_MaxSignPageCount);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label_MaxCachePageCount);
+            this.Controls.Add(this.label_MaxSignCount);
+            this.Controls.Add(this.label_ConStr);
             this.Controls.Add(this.button_LoadExamToCache);
             this.Controls.Add(this.button_UpdateToDataBase);
             this.Controls.Add(this.checkBox_OrgUser);
@@ -238,6 +324,8 @@
             this.Load += new System.EventHandler(this.MainFrom_Load);
             this.StatusStrip_Main.ResumeLayout(false);
             this.StatusStrip_Main.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MaxSignPageCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MaxCachePageCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,6 +351,13 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_Default;
         private System.Windows.Forms.Button button_UpdateToDataBase;
         private System.Windows.Forms.Button button_LoadExamToCache;
+        private System.Windows.Forms.Label label_ConStr;
+        private System.Windows.Forms.Label label_MaxSignCount;
+        private System.Windows.Forms.Label label_MaxCachePageCount;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_MaxSignPageCount;
+        private System.Windows.Forms.NumericUpDown numericUpDown_MaxCachePageCount;
+        private System.Windows.Forms.Button button_BulkToolsTest;
     }
 }
 

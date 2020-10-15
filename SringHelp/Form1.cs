@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Dynamic;
+using SringHel.NetFramework;
 
 namespace SringHelp
 {
@@ -78,9 +79,11 @@ namespace SringHelp
             }
 
             toolStripStatusLabel_Default.Text = "选择报名文件";
-            OpenFileDialog excelFileDialog = new OpenFileDialog();
-            excelFileDialog.Title = "请选择报名文件";
-            excelFileDialog.Filter = "Excel文件|*.xls;*.xlsx"; //设置要选择的文件的类型
+            OpenFileDialog excelFileDialog = new OpenFileDialog
+            {
+                Title = "请选择报名文件",
+                Filter = "Excel文件|*.xls;*.xlsx" //设置要选择的文件的类型
+            };
 
             if (excelFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -171,6 +174,13 @@ namespace SringHelp
                 return;
             }
             string rst = ExamCacheHelper.GetExamToCache((Guid)selectExam[0]);
+            MessageBox.Show(rst);
+        }
+
+        private void button_BulkToolsTest_Click(object sender, EventArgs e)
+        {
+            var selectExam = (DataRowView)ComboBox_ExamList.SelectedItem; //(Guid)selectExam[0]
+            var rst = BulkInsertDemon.SignExamUser((Guid) selectExam[0]);
             MessageBox.Show(rst);
         }
     }

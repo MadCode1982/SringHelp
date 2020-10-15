@@ -1,0 +1,658 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EduModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Base_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EnCode" Type="varchar" MaxLength="50" />
+          <Property Name="Account" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Secretkey" Type="varchar" MaxLength="50" />
+          <Property Name="RealName" Type="varchar" MaxLength="50" />
+          <Property Name="NickName" Type="varchar" MaxLength="50" />
+          <Property Name="Nation" Type="varchar" MaxLength="50" />
+          <Property Name="RenCaiType" Type="varchar" MaxLength="50" />
+          <Property Name="TrainType" Type="varchar" MaxLength="50" />
+          <Property Name="TrainLevel" Type="varchar" MaxLength="50" />
+          <Property Name="ZhengZhi" Type="varchar" MaxLength="50" />
+          <Property Name="HeadIcon" Type="varchar" MaxLength="200" />
+          <Property Name="QuickQuery" Type="varchar" MaxLength="200" />
+          <Property Name="SimpleSpelling" Type="varchar" MaxLength="200" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="Mobile" Type="varchar" MaxLength="50" />
+          <Property Name="Telephone" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="OICQ" Type="varchar" MaxLength="50" />
+          <Property Name="WeChat" Type="varchar" MaxLength="50" />
+          <Property Name="MSN" Type="varchar" MaxLength="50" />
+          <Property Name="ManagerId" Type="varchar" MaxLength="50" />
+          <Property Name="Manager" Type="varchar" MaxLength="50" />
+          <Property Name="OrganizeId" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="50" />
+          <Property Name="RoleId" Type="varchar" MaxLength="50" />
+          <Property Name="DutyId" Type="varchar" MaxLength="50" />
+          <Property Name="DutyName" Type="varchar" MaxLength="50" />
+          <Property Name="PostId" Type="varchar" MaxLength="50" />
+          <Property Name="PostName" Type="varchar" MaxLength="50" />
+          <Property Name="WorkGroupId" Type="varchar" MaxLength="50" />
+          <Property Name="SecurityLevel" Type="int" />
+          <Property Name="UserOnLine" Type="int" />
+          <Property Name="OpenId" Type="int" />
+          <Property Name="Question" Type="varchar" MaxLength="50" />
+          <Property Name="AnswerQuestion" Type="varchar" MaxLength="50" />
+          <Property Name="CheckOnLine" Type="int" />
+          <Property Name="AllowStartTime" Type="datetime" />
+          <Property Name="AllowEndTime" Type="datetime" />
+          <Property Name="LockStartDate" Type="datetime" />
+          <Property Name="LockEndDate" Type="datetime" />
+          <Property Name="FirstVisit" Type="datetime" />
+          <Property Name="PreviousVisit" Type="datetime" />
+          <Property Name="LastVisit" Type="datetime" />
+          <Property Name="LogOnCount" Type="int" />
+          <Property Name="SortCode" Type="int" />
+          <Property Name="DeleteMark" Type="int" />
+          <Property Name="EnabledMark" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateUserId" Type="varchar" MaxLength="50" />
+          <Property Name="CreateUserName" Type="varchar" MaxLength="50" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyUserId" Type="varchar" MaxLength="50" />
+          <Property Name="ModifyUserName" Type="varchar" MaxLength="50" />
+          <Property Name="TenantId" Type="uniqueidentifier" />
+          <Property Name="IDNumber" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Exam_Content">
+          <Key>
+            <PropertyRef Name="ExamId" />
+          </Key>
+          <Property Name="ExamId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExamName" Type="varchar" MaxLength="128" />
+          <Property Name="ExamPassword" Type="varchar" MaxLength="50" />
+          <Property Name="ExamSection" Type="varchar" MaxLength="50" />
+          <Property Name="PaperTemplateId" Type="uniqueidentifier" />
+          <Property Name="PreviousExamId" Type="uniqueidentifier" />
+          <Property Name="ClassId" Type="uniqueidentifier" />
+          <Property Name="LessonId" Type="uniqueidentifier" />
+          <Property Name="TeacherId" Type="uniqueidentifier" />
+          <Property Name="ExamNotice" Type="nvarchar" MaxLength="3520" />
+          <Property Name="NoticeTiming" Type="int" />
+          <Property Name="IsPublic" Type="int" />
+          <Property Name="Timing" Type="int" />
+          <Property Name="StarTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="TotalScore" Type="float" />
+          <Property Name="GradeBy" Type="uniqueidentifier" />
+          <Property Name="CheckBy" Type="uniqueidentifier" />
+          <Property Name="Status" Type="int" />
+          <Property Name="ExamType" Type="varchar" MaxLength="10" />
+          <Property Name="BuildMode" Type="varchar" MaxLength="64" />
+          <Property Name="IsShare" Type="varchar" MaxLength="50" />
+          <Property Name="Remark" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="DeleteStatus" Type="bit" />
+          <Property Name="OrganizeId" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="varchar" MaxLength="50" />
+          <Property Name="TenantId" Type="uniqueidentifier" />
+          <Property Name="ExpandTime" Type="int" />
+          <Property Name="EnableHistory" Type="bit" />
+          <Property Name="EnableOptionRandom" Type="bit" />
+          <Property Name="EnableLeaveMoni" Type="bit" />
+          <Property Name="ImageIds" Type="varchar" MaxLength="150" />
+          <Property Name="EnableCacheModel" Type="int" />
+        </EntityType>
+        <EntityType Name="Exam_Papers">
+          <Key>
+            <PropertyRef Name="PaperId" />
+          </Key>
+          <Property Name="PaperId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExamId" Type="uniqueidentifier" />
+          <Property Name="PaperName" Type="varchar" MaxLength="150" />
+          <Property Name="PaperFileId" Type="varchar" MaxLength="50" />
+          <Property Name="PaperFilePath" Type="varchar" MaxLength="250" />
+          <Property Name="PaperFormJson" Type="text" />
+          <Property Name="CheckBy" Type="uniqueidentifier" />
+          <Property Name="CheckDate" Type="datetime" />
+          <Property Name="CurrentIndex" Type="int" />
+          <Property Name="Type" Type="int" />
+          <Property Name="SectionId" Type="uniqueidentifier" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="DeleteStatus" Type="bit" />
+          <Property Name="OrganizeId" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="varchar" MaxLength="50" />
+          <Property Name="TenantId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Exam_StudentPaperDetail">
+          <Key>
+            <PropertyRef Name="StudentPaperDetailId" />
+          </Key>
+          <Property Name="StudentPaperDetailId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StudentPaperId" Type="uniqueidentifier" />
+          <Property Name="PaperStructureId" Type="uniqueidentifier" />
+          <Property Name="QuestionId" Type="uniqueidentifier" />
+          <Property Name="QuestionType" Type="int" />
+          <Property Name="StudentAnswerText" Type="nvarchar" MaxLength="3500" />
+          <Property Name="StudentAnswerOptionId" Type="uniqueidentifier" />
+          <Property Name="Score" Type="float" />
+          <Property Name="GradeBy" Type="uniqueidentifier" />
+          <Property Name="GradeDate" Type="datetime" />
+          <Property Name="CheckBy" Type="uniqueidentifier" />
+          <Property Name="CheckDate" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="ErrorType" Type="varchar" MaxLength="64" />
+          <Property Name="ErrorComment" Type="varchar(max)" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="DeleteStatus" Type="bit" />
+          <Property Name="TenantId" Type="uniqueidentifier" />
+          <Property Name="Result" Type="nvarchar(max)" />
+          <Property Name="QuestionResolveActionId" Type="uniqueidentifier" />
+          <Property Name="QuestionJson" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Exam_StudentPapers">
+          <Key>
+            <PropertyRef Name="StudentPaperId" />
+          </Key>
+          <Property Name="StudentPaperId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExamId" Type="uniqueidentifier" />
+          <Property Name="PaperId" Type="uniqueidentifier" />
+          <Property Name="StudentPaperFormJson" Type="text" />
+          <Property Name="StudentId" Type="uniqueidentifier" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="StarExamTime" Type="datetime" />
+          <Property Name="EndExamTime" Type="datetime" />
+          <Property Name="StudentPaperFileId" Type="varchar" MaxLength="50" />
+          <Property Name="StudentPaperFilePath" Type="varchar" MaxLength="150" />
+          <Property Name="GradeBy" Type="uniqueidentifier" />
+          <Property Name="GradeDate" Type="datetime" />
+          <Property Name="CheckBy" Type="uniqueidentifier" />
+          <Property Name="CheckDate" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="ErrorFeedBack" Type="varchar" MaxLength="1024" />
+          <Property Name="Part1Score" Type="float" />
+          <Property Name="Part2Score" Type="float" />
+          <Property Name="Part3Score" Type="float" />
+          <Property Name="TotalScore" Type="float" />
+          <Property Name="ClientIP" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="uniqueidentifier" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="DeleteStatus" Type="bit" />
+          <Property Name="OrganizeId" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="varchar" MaxLength="50" />
+          <Property Name="TenantId" Type="uniqueidentifier" />
+          <Property Name="Batch" Type="int" />
+          <Property Name="ExamNumber" Type="int" />
+          <Property Name="AdjustmentTime" Type="int" />
+          <Property Name="IP" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="EduModelStoreContainer">
+          <EntitySet Name="Base_User" EntityType="Self.Base_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam_Content" EntityType="Self.Exam_Content" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam_Papers" EntityType="Self.Exam_Papers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam_StudentPaperDetail" EntityType="Self.Exam_StudentPaperDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam_StudentPapers" EntityType="Self.Exam_StudentPapers" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EduModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Base_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EnCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Secretkey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RenCaiType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TrainType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TrainLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZhengZhi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HeadIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="QuickQuery" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SimpleSpelling" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OICQ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WeChat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MSN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Manager" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RoleId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DutyId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DutyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PostId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PostName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkGroupId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecurityLevel" Type="Int32" />
+          <Property Name="UserOnLine" Type="Int32" />
+          <Property Name="OpenId" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AnswerQuestion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CheckOnLine" Type="Int32" />
+          <Property Name="AllowStartTime" Type="DateTime" Precision="3" />
+          <Property Name="AllowEndTime" Type="DateTime" Precision="3" />
+          <Property Name="LockStartDate" Type="DateTime" Precision="3" />
+          <Property Name="LockEndDate" Type="DateTime" Precision="3" />
+          <Property Name="FirstVisit" Type="DateTime" Precision="3" />
+          <Property Name="PreviousVisit" Type="DateTime" Precision="3" />
+          <Property Name="LastVisit" Type="DateTime" Precision="3" />
+          <Property Name="LogOnCount" Type="Int32" />
+          <Property Name="SortCode" Type="Int32" />
+          <Property Name="DeleteMark" Type="Int32" />
+          <Property Name="EnabledMark" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TenantId" Type="Guid" />
+          <Property Name="IDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Exam_Content">
+          <Key>
+            <PropertyRef Name="ExamId" />
+          </Key>
+          <Property Name="ExamId" Type="Guid" Nullable="false" />
+          <Property Name="ExamName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ExamPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExamSection" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PaperTemplateId" Type="Guid" />
+          <Property Name="PreviousExamId" Type="Guid" />
+          <Property Name="ClassId" Type="Guid" />
+          <Property Name="LessonId" Type="Guid" />
+          <Property Name="TeacherId" Type="Guid" />
+          <Property Name="ExamNotice" Type="String" MaxLength="3520" FixedLength="false" Unicode="true" />
+          <Property Name="NoticeTiming" Type="Int32" />
+          <Property Name="IsPublic" Type="Int32" />
+          <Property Name="Timing" Type="Int32" />
+          <Property Name="StarTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="TotalScore" Type="Double" />
+          <Property Name="GradeBy" Type="Guid" />
+          <Property Name="CheckBy" Type="Guid" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="ExamType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BuildMode" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="IsShare" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedBy" Type="Guid" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeleteStatus" Type="Boolean" />
+          <Property Name="OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TenantId" Type="Guid" />
+          <Property Name="ExpandTime" Type="Int32" />
+          <Property Name="EnableHistory" Type="Boolean" />
+          <Property Name="EnableOptionRandom" Type="Boolean" />
+          <Property Name="EnableLeaveMoni" Type="Boolean" />
+          <Property Name="ImageIds" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="EnableCacheModel" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Exam_Papers">
+          <Key>
+            <PropertyRef Name="PaperId" />
+          </Key>
+          <Property Name="PaperId" Type="Guid" Nullable="false" />
+          <Property Name="ExamId" Type="Guid" />
+          <Property Name="PaperName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="PaperFileId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PaperFilePath" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PaperFormJson" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CheckBy" Type="Guid" />
+          <Property Name="CheckDate" Type="DateTime" Precision="3" />
+          <Property Name="CurrentIndex" Type="Int32" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="SectionId" Type="Guid" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedBy" Type="Guid" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeleteStatus" Type="Boolean" />
+          <Property Name="OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TenantId" Type="Guid" />
+        </EntityType>
+        <EntityType Name="Exam_StudentPaperDetail">
+          <Key>
+            <PropertyRef Name="StudentPaperDetailId" />
+          </Key>
+          <Property Name="StudentPaperDetailId" Type="Guid" Nullable="false" />
+          <Property Name="StudentPaperId" Type="Guid" />
+          <Property Name="PaperStructureId" Type="Guid" />
+          <Property Name="QuestionId" Type="Guid" />
+          <Property Name="QuestionType" Type="Int32" />
+          <Property Name="StudentAnswerText" Type="String" MaxLength="3500" FixedLength="false" Unicode="true" />
+          <Property Name="StudentAnswerOptionId" Type="Guid" />
+          <Property Name="Score" Type="Double" />
+          <Property Name="GradeBy" Type="Guid" />
+          <Property Name="GradeDate" Type="DateTime" Precision="3" />
+          <Property Name="CheckBy" Type="Guid" />
+          <Property Name="CheckDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="ErrorType" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="ErrorComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedBy" Type="Guid" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeleteStatus" Type="Boolean" />
+          <Property Name="TenantId" Type="Guid" />
+          <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionResolveActionId" Type="Guid" />
+          <Property Name="QuestionJson" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Exam_StudentPapers">
+          <Key>
+            <PropertyRef Name="StudentPaperId" />
+          </Key>
+          <Property Name="StudentPaperId" Type="Guid" Nullable="false" />
+          <Property Name="ExamId" Type="Guid" />
+          <Property Name="PaperId" Type="Guid" />
+          <Property Name="StudentPaperFormJson" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StudentId" Type="Guid" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="StarExamTime" Type="DateTime" Precision="3" />
+          <Property Name="EndExamTime" Type="DateTime" Precision="3" />
+          <Property Name="StudentPaperFileId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StudentPaperFilePath" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="GradeBy" Type="Guid" />
+          <Property Name="GradeDate" Type="DateTime" Precision="3" />
+          <Property Name="CheckBy" Type="Guid" />
+          <Property Name="CheckDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="ErrorFeedBack" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="Part1Score" Type="Double" />
+          <Property Name="Part2Score" Type="Double" />
+          <Property Name="Part3Score" Type="Double" />
+          <Property Name="TotalScore" Type="Double" />
+          <Property Name="ClientIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedBy" Type="Guid" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeleteStatus" Type="Boolean" />
+          <Property Name="OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TenantId" Type="Guid" />
+          <Property Name="Batch" Type="Int32" />
+          <Property Name="ExamNumber" Type="Int32" />
+          <Property Name="AdjustmentTime" Type="Int32" />
+          <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="eduEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Base_User" EntityType="Self.Base_User" />
+          <EntitySet Name="Exam_Content" EntityType="Self.Exam_Content" />
+          <EntitySet Name="Exam_Papers" EntityType="Self.Exam_Papers" />
+          <EntitySet Name="Exam_StudentPaperDetail" EntityType="Self.Exam_StudentPaperDetail" />
+          <EntitySet Name="Exam_StudentPapers" EntityType="Self.Exam_StudentPapers" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EduModelStoreContainer" CdmEntityContainer="eduEntities">
+          <EntitySetMapping Name="Base_User">
+            <EntityTypeMapping TypeName="EduModel.Base_User">
+              <MappingFragment StoreEntitySet="Base_User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EnCode" ColumnName="EnCode" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Secretkey" ColumnName="Secretkey" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Nation" ColumnName="Nation" />
+                <ScalarProperty Name="RenCaiType" ColumnName="RenCaiType" />
+                <ScalarProperty Name="TrainType" ColumnName="TrainType" />
+                <ScalarProperty Name="TrainLevel" ColumnName="TrainLevel" />
+                <ScalarProperty Name="ZhengZhi" ColumnName="ZhengZhi" />
+                <ScalarProperty Name="HeadIcon" ColumnName="HeadIcon" />
+                <ScalarProperty Name="QuickQuery" ColumnName="QuickQuery" />
+                <ScalarProperty Name="SimpleSpelling" ColumnName="SimpleSpelling" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="OICQ" ColumnName="OICQ" />
+                <ScalarProperty Name="WeChat" ColumnName="WeChat" />
+                <ScalarProperty Name="MSN" ColumnName="MSN" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="OrganizeId" ColumnName="OrganizeId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="DutyId" ColumnName="DutyId" />
+                <ScalarProperty Name="DutyName" ColumnName="DutyName" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="PostName" ColumnName="PostName" />
+                <ScalarProperty Name="WorkGroupId" ColumnName="WorkGroupId" />
+                <ScalarProperty Name="SecurityLevel" ColumnName="SecurityLevel" />
+                <ScalarProperty Name="UserOnLine" ColumnName="UserOnLine" />
+                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="AnswerQuestion" ColumnName="AnswerQuestion" />
+                <ScalarProperty Name="CheckOnLine" ColumnName="CheckOnLine" />
+                <ScalarProperty Name="AllowStartTime" ColumnName="AllowStartTime" />
+                <ScalarProperty Name="AllowEndTime" ColumnName="AllowEndTime" />
+                <ScalarProperty Name="LockStartDate" ColumnName="LockStartDate" />
+                <ScalarProperty Name="LockEndDate" ColumnName="LockEndDate" />
+                <ScalarProperty Name="FirstVisit" ColumnName="FirstVisit" />
+                <ScalarProperty Name="PreviousVisit" ColumnName="PreviousVisit" />
+                <ScalarProperty Name="LastVisit" ColumnName="LastVisit" />
+                <ScalarProperty Name="LogOnCount" ColumnName="LogOnCount" />
+                <ScalarProperty Name="SortCode" ColumnName="SortCode" />
+                <ScalarProperty Name="DeleteMark" ColumnName="DeleteMark" />
+                <ScalarProperty Name="EnabledMark" ColumnName="EnabledMark" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateUserName" ColumnName="CreateUserName" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="ModifyUserName" ColumnName="ModifyUserName" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exam_Content">
+            <EntityTypeMapping TypeName="EduModel.Exam_Content">
+              <MappingFragment StoreEntitySet="Exam_Content">
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+                <ScalarProperty Name="ExamPassword" ColumnName="ExamPassword" />
+                <ScalarProperty Name="ExamSection" ColumnName="ExamSection" />
+                <ScalarProperty Name="PaperTemplateId" ColumnName="PaperTemplateId" />
+                <ScalarProperty Name="PreviousExamId" ColumnName="PreviousExamId" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="LessonId" ColumnName="LessonId" />
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+                <ScalarProperty Name="ExamNotice" ColumnName="ExamNotice" />
+                <ScalarProperty Name="NoticeTiming" ColumnName="NoticeTiming" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="Timing" ColumnName="Timing" />
+                <ScalarProperty Name="StarTime" ColumnName="StarTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="TotalScore" ColumnName="TotalScore" />
+                <ScalarProperty Name="GradeBy" ColumnName="GradeBy" />
+                <ScalarProperty Name="CheckBy" ColumnName="CheckBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ExamType" ColumnName="ExamType" />
+                <ScalarProperty Name="BuildMode" ColumnName="BuildMode" />
+                <ScalarProperty Name="IsShare" ColumnName="IsShare" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
+                <ScalarProperty Name="OrganizeId" ColumnName="OrganizeId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="ExpandTime" ColumnName="ExpandTime" />
+                <ScalarProperty Name="EnableHistory" ColumnName="EnableHistory" />
+                <ScalarProperty Name="EnableOptionRandom" ColumnName="EnableOptionRandom" />
+                <ScalarProperty Name="EnableLeaveMoni" ColumnName="EnableLeaveMoni" />
+                <ScalarProperty Name="ImageIds" ColumnName="ImageIds" />
+                <ScalarProperty Name="EnableCacheModel" ColumnName="EnableCacheModel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exam_Papers">
+            <EntityTypeMapping TypeName="EduModel.Exam_Papers">
+              <MappingFragment StoreEntitySet="Exam_Papers">
+                <ScalarProperty Name="PaperId" ColumnName="PaperId" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="PaperName" ColumnName="PaperName" />
+                <ScalarProperty Name="PaperFileId" ColumnName="PaperFileId" />
+                <ScalarProperty Name="PaperFilePath" ColumnName="PaperFilePath" />
+                <ScalarProperty Name="PaperFormJson" ColumnName="PaperFormJson" />
+                <ScalarProperty Name="CheckBy" ColumnName="CheckBy" />
+                <ScalarProperty Name="CheckDate" ColumnName="CheckDate" />
+                <ScalarProperty Name="CurrentIndex" ColumnName="CurrentIndex" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
+                <ScalarProperty Name="OrganizeId" ColumnName="OrganizeId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exam_StudentPaperDetail">
+            <EntityTypeMapping TypeName="EduModel.Exam_StudentPaperDetail">
+              <MappingFragment StoreEntitySet="Exam_StudentPaperDetail">
+                <ScalarProperty Name="StudentPaperDetailId" ColumnName="StudentPaperDetailId" />
+                <ScalarProperty Name="StudentPaperId" ColumnName="StudentPaperId" />
+                <ScalarProperty Name="PaperStructureId" ColumnName="PaperStructureId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="StudentAnswerText" ColumnName="StudentAnswerText" />
+                <ScalarProperty Name="StudentAnswerOptionId" ColumnName="StudentAnswerOptionId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="GradeBy" ColumnName="GradeBy" />
+                <ScalarProperty Name="GradeDate" ColumnName="GradeDate" />
+                <ScalarProperty Name="CheckBy" ColumnName="CheckBy" />
+                <ScalarProperty Name="CheckDate" ColumnName="CheckDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ErrorType" ColumnName="ErrorType" />
+                <ScalarProperty Name="ErrorComment" ColumnName="ErrorComment" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="QuestionResolveActionId" ColumnName="QuestionResolveActionId" />
+                <ScalarProperty Name="QuestionJson" ColumnName="QuestionJson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exam_StudentPapers">
+            <EntityTypeMapping TypeName="EduModel.Exam_StudentPapers">
+              <MappingFragment StoreEntitySet="Exam_StudentPapers">
+                <ScalarProperty Name="StudentPaperId" ColumnName="StudentPaperId" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="PaperId" ColumnName="PaperId" />
+                <ScalarProperty Name="StudentPaperFormJson" ColumnName="StudentPaperFormJson" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StarExamTime" ColumnName="StarExamTime" />
+                <ScalarProperty Name="EndExamTime" ColumnName="EndExamTime" />
+                <ScalarProperty Name="StudentPaperFileId" ColumnName="StudentPaperFileId" />
+                <ScalarProperty Name="StudentPaperFilePath" ColumnName="StudentPaperFilePath" />
+                <ScalarProperty Name="GradeBy" ColumnName="GradeBy" />
+                <ScalarProperty Name="GradeDate" ColumnName="GradeDate" />
+                <ScalarProperty Name="CheckBy" ColumnName="CheckBy" />
+                <ScalarProperty Name="CheckDate" ColumnName="CheckDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ErrorFeedBack" ColumnName="ErrorFeedBack" />
+                <ScalarProperty Name="Part1Score" ColumnName="Part1Score" />
+                <ScalarProperty Name="Part2Score" ColumnName="Part2Score" />
+                <ScalarProperty Name="Part3Score" ColumnName="Part3Score" />
+                <ScalarProperty Name="TotalScore" ColumnName="TotalScore" />
+                <ScalarProperty Name="ClientIP" ColumnName="ClientIP" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
+                <ScalarProperty Name="OrganizeId" ColumnName="OrganizeId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="ExamNumber" ColumnName="ExamNumber" />
+                <ScalarProperty Name="AdjustmentTime" ColumnName="AdjustmentTime" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
