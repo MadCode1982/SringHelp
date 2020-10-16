@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SringHelp", "SringHelp\Srin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SringHel.NetFramework", "SringHel.NetFramework\SringHel.NetFramework.csproj", "{BE034C35-1F18-419A-B4C5-3AD76EEF1C90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SringHelpMainFrom", "SringHelpMainFrom\SringHelpMainFrom.csproj", "{43DC198D-BE21-4CFC-9073-4886C25DB3FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BE034C35-1F18-419A-B4C5-3AD76EEF1C90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE034C35-1F18-419A-B4C5-3AD76EEF1C90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE034C35-1F18-419A-B4C5-3AD76EEF1C90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43DC198D-BE21-4CFC-9073-4886C25DB3FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43DC198D-BE21-4CFC-9073-4886C25DB3FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43DC198D-BE21-4CFC-9073-4886C25DB3FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43DC198D-BE21-4CFC-9073-4886C25DB3FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

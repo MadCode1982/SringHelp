@@ -222,7 +222,8 @@ namespace SringHelp
             using SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(conn)
             {
                 DestinationTableName = "Exam_StudentPapers",
-                BatchSize = studentPaperTable.Rows.Count
+                BatchSize = studentPaperTable.Rows.Count,
+                BulkCopyTimeout = 120
             };
             foreach (DataColumn column in studentPaperTable.Columns)
             {
@@ -253,7 +254,8 @@ namespace SringHelp
             using SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(conn)
             {
                 DestinationTableName = "Exam_StudentPaperDetail",
-                BatchSize = studentPaperDetailsTable.Rows.Count
+                BatchSize = studentPaperDetailsTable.Rows.Count,
+                BulkCopyTimeout = 120
             };
             foreach (DataColumn column in studentPaperDetailsTable.Columns)
             {
